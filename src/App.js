@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+//Core
+import React, {useState} from "react";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+//redux
+import {useDispatch} from "react-redux";
+
+//components
+import {Layout} from "./component/Layout";
+import {ListItems} from "./component/ListItems";
+import {ListComments} from "./component/ListComments";
+
+//type
+import types from "./redux/types";
+
+export const App = () => {
+
+    const dispatch = useDispatch()
+    const [comment, setComment] = useState(1)
+    const handleClick = id => {
+        setComment(id)
+    }
+    const deleteItem = id => {
+        if(id === comment){
+            setComment(1)
+        }
+        dispatch({type: types.DELETE_ITEM_START, id})
+    }
+
+    return (
+      <Layout>
+        <ListItems
+            active={comment}
+            handleClick={handleClick}
+            deleteItem={deleteItem}
+        />
+        <ListComments comment={comment} />
+      </Layout>
+)
 }
-
-export default App;
