@@ -21,7 +21,7 @@ export const ListComments = ({comment}) => {
     }, [comment])
 
     const handleClickEnter = (e) => {
-        if(newComment.length <= 1){
+        if(newComment.length < 1){
             return
         }
 
